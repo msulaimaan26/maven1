@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,12 +21,18 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
+      - name: Build and Run JUnit Tests
         run: mvn -B package --file pom.xml
 
-      - name: Upload Test Reports on Failure
+      - name: Upload JAR to GitHub Actions Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/*.jar
+
+      - name: Upload JUnit Test Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
+          name: junit-test-reports
           path: target/surefire-reports/

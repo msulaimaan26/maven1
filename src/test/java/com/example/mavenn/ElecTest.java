@@ -16,12 +16,11 @@ public class ElecTest {
         calculator = new ElecCalc();
     }
 
-    // 1. Correct charge within each slab (INTENTIONALLY FAILED)
+    // 1. Correct charge within each slab
     @Test
     @DisplayName("Charge within Slab 1 (0 - 100 units)")
     void testWithinSlab1() {
-        // Actual bill for 50 units is 125.00, expecting 999.00 to fail this test
-        assertEquals(999.00, calculator.calculateBill(50), 0.001);
+        assertEquals(125.00, calculator.calculateBill(50), 0.001);
     }
 
     @Test
